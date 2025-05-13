@@ -8,6 +8,7 @@ const routerPost = require("./routers/posts");
 
 // * static Asset
 app.use(express.static("public"));
+app.use(express.json());
 
 app.use("/posts", routerPost);
 

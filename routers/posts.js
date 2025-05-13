@@ -26,9 +26,14 @@ router.get("/:id", (req, res) => {
 
 // # STORE
 router.post("/", (req, res) => {
+  const { title, content, image, tags } = req.body;
+  const id = posts[posts.length - 1].id + 1;
+  console.log(id);
+  const post = { id, title, content, image, tags };
+  posts.push(post);
   console.log("Creazione di un nuovo post");
   res.header({ "Access-Control-Allow-Origin": "*" });
-  res.status(201).json({ status: 201, success: "ok", data: "post creato" });
+  res.status(201).json({ status: 201, success: "ok", data: post });
 });
 
 // # UPDATE
