@@ -47,6 +47,19 @@ router.put("/:id", (req, res) => {
 });
 
 // # MODIFY
+router.patch("/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  console.log("richiesta la modifica del post: " + id);
+
+  const post = posts.find((post) => post.id === id);
+
+  res.header({ "Access-Control-Allow-Origin": "*" });
+  post
+    ? res.status(202).json({ status: 202, success: "ok", data: post })
+    : res
+        .status(404)
+        .json({ status: 404, success: "ko", data: "post not found" });
+});
 
 // # DELETE
 
