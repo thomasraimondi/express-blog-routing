@@ -1,9 +1,12 @@
-const { appPort, appUrl } = require("./data/db");
-
+// * App Config
 const express = require("express");
 const app = express();
-const { posts } = require("./data/db");
+const { appPort, appUrl } = require("./data/db");
 
+//* Import Raouter
+const routerPost = require("./routers/posts");
+
+// * static Asset
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
