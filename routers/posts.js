@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { posts } = require("../data/db");
+let { posts } = require("../data/db");
 
 // # INDEX
 router.get("/", (req, res) => {
@@ -62,5 +62,20 @@ router.patch("/:id", (req, res) => {
 });
 
 // # DELETE
+router.delete("/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  console.log("richiesta l'eliminazione del post: " + id);
+  const post = posts.find((post) => post.id === id);
+
+  res.header({ "Access-Control-Allow-Origin": "*" });
+  if (post) {
+    posts = posts.filter((post) => post.id !== id);
+    res.status(200).json({ status: 200, success: "ok", data: posts });
+  } else {
+    res
+      .status(404)
+      .json({ status: 404, success: "ko", data: "post not found" });
+  }
+});
 
 module.exports = router;
