@@ -2,12 +2,16 @@ const pageTitle = document.getElementById("page-title");
 const btnChangeTitle = document.getElementById("change-title");
 const btnGetPosts = document.getElementById("get-posts");
 const postsList = document.getElementById("posts-list");
+const btnGetPost = document.getElementById("get-post");
+const formGetPost = document.getElementById("form-get-post");
 
 const getPosts = () => {
-  const url = "http://127.0.0.1:3000/bacheca";
+  formGetPost.classList.add("d-none");
+  postsList.classList.remove("d-none");
+  const url = "http://127.0.0.1:3000/posts";
   axios.get(url).then((res) => {
-    console.log(res.data.posts);
-    const listItems = createlistItems(res.data.posts);
+    console.log(res.data.data);
+    const listItems = createlistItems(res.data.data);
     postsList.innerHTML = listItems;
   });
 };
@@ -42,5 +46,11 @@ const renderListItem = (post) => {
 </div>`;
 };
 
+const getPost = () => {
+  postsList.classList.add("d-none");
+  formGetPost.classList.remove("d-none");
+};
+
 btnChangeTitle.addEventListener("click", changeTitle);
 btnGetPosts.addEventListener("click", getPosts);
+btnGetPost.addEventListener("click", getPost);

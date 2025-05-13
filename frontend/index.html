@@ -16,15 +16,34 @@
     ></script>
   </head>
   <body>
-    <h1 id="page-title">Axios call Node Js</h1>
     <div class="container">
-      <div id="posts-list" class="row"></div>
+      <h1 id="page-title" class="text-center">Axios call Node Js</h1>
     </div>
-    <button id="change-title" class="btn btn-primary" type="button">
-      Change Title
-    </button>
-    <button id="get-posts" class="btn btn-primary" type="button">
-      Get Posts
-    </button>
+    <div class="container">
+      <div class="buttons text-center m-4">
+        <button id="change-title" class="btn btn-primary" type="button">
+          Change Title
+        </button>
+        <button id="get-posts" class="btn btn-primary" type="button">
+          Get Posts
+        </button>
+        <button id="get-post" class="btn btn-primary" type="button">
+          Get Post
+        </button>
+      </div>
+      <form
+        id="form-get-post"
+        action="http://127.0.0.1:3000/posts/"
+        method="get"
+        class="d-none"
+      >
+        <div class="mb-3">
+          <label for="id" class="form-label">Id Post</label>
+          <input type="number" class="form-control" id="id" name="id" />
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+      <div id="posts-list" class="row d-none"></div>
+    </div>
   </body>
 </html>

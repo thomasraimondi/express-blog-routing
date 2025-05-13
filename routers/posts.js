@@ -1,12 +1,35 @@
 const express = require("express");
 const router = express.Router();
 let { posts } = require("../data/db");
+const { isJSONType } = require("ajv/dist/compile/rules");
 
 // # INDEX
 router.get("/", (req, res) => {
   console.log("richiesta ricevuta route: Home");
-  res.header({ "Access-Control-Allow-Origin": "*" });
-  res.status(200).json({ status: 200, success: "ok", data: posts });
+  const id = parseInt(req.query.id);
+  console.log(id);
+  if (id !== undefined) {
+    if (!isNaN(id)) {
+      const post = posts.find((post) => post.id === id);
+      if (post) {
+        res.header({ "Access-Control-Allow-Origin": "*" });
+        res.status(200).json({ status: 200, success: "ok", data: post });
+      } else {
+        res.header({ "Access-Control-Allow-Origin": "*" });
+        res
+          .status(404)
+          .json({ status: 404, success: "ok", data: "post not found" });
+      }
+    } else {
+      res.header({ "Access-Control-Allow-Origin": "*" });
+      res
+        .status(400)
+        .json({ status: 400, success: "ok", data: "Id is not a number" });
+    }
+  } else {
+    res.header({ "Access-Control-Allow-Origin": "*" });
+    res.status(200).json({ status: 200, success: "ok", data: posts });
+  }
 });
 
 // # SHOW
@@ -37,13 +60,11 @@ router.post("/", (req, res) => {
     res.status(201).json({ status: 201, success: "ok", data: post });
   } else {
     res.header({ "Access-Control-Allow-Origin": "*" });
-    res
-      .status(400)
-      .json({
-        status: 400,
-        success: "ko",
-        data: "title and content are empty",
-      });
+    res.status(400).json({
+      status: 400,
+      success: "ko",
+      data: "title and content are empty",
+    });
   }
 });
 
