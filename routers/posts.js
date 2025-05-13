@@ -26,14 +26,25 @@ router.get("/:id", (req, res) => {
 
 // # STORE
 router.post("/", (req, res) => {
-  const { title, content, image, tags } = req.body;
-  const id = posts[posts.length - 1].id + 1;
-  console.log(id);
-  const post = { id, title, content, image, tags };
-  posts.push(post);
-  console.log("Creazione di un nuovo post");
-  res.header({ "Access-Control-Allow-Origin": "*" });
-  res.status(201).json({ status: 201, success: "ok", data: post });
+  const { title, content, image, tags } = req.body; // destructure body of request
+
+  if (title.length > 0 && content.length > 0) {
+    const id = posts[posts.length - 1].id + 1; // generate id
+    const post = { id, title, content, image, tags }; // create new post
+    posts.push(post); // add new post in array
+
+    res.header({ "Access-Control-Allow-Origin": "*" });
+    res.status(201).json({ status: 201, success: "ok", data: post });
+  } else {
+    res.header({ "Access-Control-Allow-Origin": "*" });
+    res
+      .status(400)
+      .json({
+        status: 400,
+        success: "ko",
+        data: "title and content are empty",
+      });
+  }
 });
 
 // # UPDATE
