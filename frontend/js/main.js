@@ -4,6 +4,7 @@ const btnGetPosts = document.getElementById("get-posts");
 const postsList = document.getElementById("posts-list");
 const btnGetPost = document.getElementById("get-post");
 const formGetPost = document.getElementById("form-get-post");
+const btnSubmitForm = document.getElementById("btn-form");
 
 const getPosts = () => {
   formGetPost.classList.add("d-none");
@@ -51,6 +52,8 @@ const getPost = () => {
   formGetPost.classList.remove("d-none");
 };
 
-btnChangeTitle.addEventListener("click", changeTitle);
+// btnChangeTitle.addEventListener("click", changeTitle);
 btnGetPosts.addEventListener("click", getPosts);
 btnGetPost.addEventListener("click", getPost);
+// btnSubmitForm.addEventListener("click",
+// });
